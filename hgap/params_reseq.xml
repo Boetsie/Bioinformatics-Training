@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smrtpipeSettings>
+  <protocol>
+    <param name="reference">
+      <value>reference</value>
+    </param>
+  </protocol>
+  <module name="P_Fetch"/>
+  <module name="P_Filter">
+    <param name="minLength" label="Minimum Readlength">
+      <value>50</value>
+    </param>
+    <param name="readScore" label="Minimum Read Quality">
+      <value>0.75</value>
+    </param>
+  </module>
+  <module name="P_Mapping">
+    <param name="maxHits">
+      <value>10</value>
+    </param>
+    <param name="maxDivergence">
+      <value>40</value>
+    </param>
+    <param name="minAnchorSize">
+      <value>8</value>
+    </param>
+    <param name="samBam">
+      <value>True</value>
+    </param>
+    <param name="gff2Bed">
+      <value>True</value>
+    </param>
+    <param name="placeRepeatsRandomly">
+      <value>True</value>
+    </param>
+    <param name="align_opts">
+      <value> --minAccuracy=0.75 --minLength=50 </value>
+    </param>
+    <param name="pulseMetrics">
+      <value>DeletionQV,IPD,InsertionQV,PulseWidth,QualityValue,MergeQV,SubstitutionQV,DeletionTag</value>
+    </param>
+  </module>
+  <module name="P_MappingReports"/>
+  <module name="P_GenomicConsensus">
+    <param name="algorithm">
+      <value>quiver</value>
+    </param>
+    <param name="outputConsensus">
+      <value>True</value>
+    </param>
+    <param name="makeVcf">
+      <value>True</value>
+    </param>
+    <param name="makeBed">
+      <value>True</value>
+    </param>
+    <param name="enableMapQVFilter">
+      <value>True</value>
+    </param>
+  </module>
+  <module name="P_ConsensusReports"/>
+</smrtpipeSettings>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smrtpipeSettings>
+  <module name="P_Fetch"/>
+    <module name="P_Filter">
+        <param name="minLength">
+            <value>50</value>
+        </param>
+        <param name="minSubReadLength">
+            <value>500</value>
+        </param>
+        <param name="readScore">
+            <value>0.80</value>
+        </param>
+    </module>
+  <module name="P_FilterReports"/>
+    <module name="P_PreAssembler">
+        <param name="useFastqAsShortReads">
+            <value>False</value>
+        </param>
+        <param name="useFastaAsLongReads">
+            <value>False</value>
+        </param>
+        <param name="useLongReadsInConsensus">
+            <value>False</value>
+        </param>
+        <param name="useUnalignedReadsInConsensus">
+            <value>False</value>
+        </param>
+        <param name="useCCS">
+            <value>False</value>
+        </param>
+        <param name="minLongReadLength">
+            <value>6000</value>
+        </param>
+        <param name="blasrOpts">
+            <value> -minReadLength 200 -maxScore -1000 -bestn 24 -maxLCPLength 16 -nCandidates 24 </value>
+        </param>
+        <param name="consensusOpts">
+            <value> -L </value>
+        </param>
+        <param name="layoutOpts">
+            <value> --overlapTolerance 100 --trimHit 50 --allowPartialAlignments </value>
+        </param>
+        <param name="consensusChunks">
+            <value>60</value>
+        </param>
+        <param name="trimFastq">
+            <value>True</value>
+        </param>
+        <param name="trimOpts">
+            <value> --qvCut=59.5 --minSeqLen=500 </value>
+        </param>
+    </module>
+</smrtpipeSettings>
