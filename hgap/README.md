@@ -27,3 +27,9 @@ execution.
 If the -p and/or -r options are provided, the default parameter files are   
 overridden.  You must provide an input.xml which lists the base files to   
 include in the analysis.
+
+Output
+------
+The final output of HGAP will be located in the data/ directory:
+* consensus.fasta.gz
+* consensus.fastq.gz
