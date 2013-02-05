@@ -3,7 +3,7 @@
   <module name="P_Fetch"/>
     <module name="P_Filter">
         <param name="minLength">
-            <value>50</value>
+            <value>100</value>
         </param>
         <param name="minSubReadLength">
             <value>500</value>

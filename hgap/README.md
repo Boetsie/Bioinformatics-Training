@@ -18,8 +18,8 @@ Command Line
 Be sure to have your SMRT Pipe installation and environment ready prior to  
 execution.  
 
-    > hgap-1_4.sh --help
-    USAGE: hgap-1_4.sh [params] <input.xml>
+    > hgap14.sh --help
+    USAGE: hgap14.sh [params] <input.xml>
      -p    Optional path to a preassembler params file
      -r    Optional path to a resequencing params file
      -s    Optional path to a celera-assembler spec file
