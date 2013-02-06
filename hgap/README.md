@@ -23,6 +23,7 @@ execution.
      -p    Optional path to a preassembler params file
      -r    Optional path to a resequencing params file
      -s    Optional path to a celera-assembler spec file
+     -x    Override default options to smrtpipe
 
 If the -p and/or -r options are provided, the default parameter files are   
 overridden.  You must provide an input.xml which lists the base files to   
@@ -33,3 +34,10 @@ Output
 The final output of HGAP will be located in the data/ directory:
 * consensus.fasta.gz
 * consensus.fastq.gz
+
+Notes
+-----
+
+The provided xml parameter files are suitable for C2 data.  For XL data,
+you may find more success by adding --allowPartialAlignments to the 
+layoutOps section of the params_preasm.xml file.

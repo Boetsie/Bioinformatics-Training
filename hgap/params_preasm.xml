@@ -39,7 +39,7 @@
             <value> -L </value>
         </param>
         <param name="layoutOpts">
-            <value> --overlapTolerance 100 --trimHit 50 --allowPartialAlignments </value>
+            <value> --overlapTolerance 100 --trimHit 50 </value>
         </param>
         <param name="consensusChunks">
             <value>60</value>
