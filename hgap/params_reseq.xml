@@ -10,6 +10,9 @@
     <param name="minLength" label="Minimum Readlength">
       <value>50</value>
     </param>
+    <param name="minSubReadLength" label="Minimum Subread Length">
+      <value>50</value>
+    </param>
     <param name="readScore" label="Minimum Read Quality">
       <value>0.75</value>
     </param>
@@ -19,10 +22,10 @@
       <value>10</value>
     </param>
     <param name="maxDivergence">
-      <value>40</value>
+      <value>30</value>
     </param>
     <param name="minAnchorSize">
-      <value>8</value>
+      <value>12</value>
     </param>
     <param name="samBam">
       <value>True</value>
@@ -34,7 +37,7 @@
       <value>True</value>
     </param>
     <param name="align_opts">
-      <value> --minAccuracy=0.75 --minLength=50 </value>
+      <value> --seed=1 --minAccuracy=0.75 --minLength=50 --useQuality  </value>
     </param>
     <param name="pulseMetrics">
       <value>DeletionQV,IPD,InsertionQV,PulseWidth,QualityValue,MergeQV,SubstitutionQV,DeletionTag</value>
