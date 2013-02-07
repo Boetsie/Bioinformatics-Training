@@ -5,16 +5,19 @@
 # Directory must be writeable.
 # Must have your smrtpipe environment setup.
 
+QUEUE='secondary'
 DEBUG=0
 VERBOSE=0
-SEYMOUR_HOME=${SEYMOUR_HOME:?"SMRT Pipe enviroment not detected."}
-srcdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-qrsh=$(which qrsh)
+SEYMOUR_HOME=${SEYMOUR_HOME:?"SMRT Pipe environment not detected."}
+RunCA=${RunCA:-'runCA'}
 
-maybe_qrsh=
-if [ -x "$qrsh" ]
+srcdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+qsub=$(which qsub)
+
+maybe_qsub=
+if [ -x "$qsub" ]
 then
-    maybe_qrsh="${qrsh} -cwd -V -j y "
+    maybe_qsub="${qsub} -cwd -sync y -S /bin/bash -V -q ${QUEUE} -N CA -o ./CA.err -b y -j y -pe smp 15 "
 fi
 
 usage() {
@@ -102,7 +105,7 @@ debug "p_reseq = ${p_reseq}"
 debug "input = ${input}"
 debug "ca_opts = ${ca_opts}"
 debug "x_opts = ${x_opts}"
-debug "qrsh = ${maybe_qrsh}"
+debug "qsub = ${maybe_qsub}"
 
 if [ -z "$input" ]
 then
@@ -117,7 +120,7 @@ then
     exit 1
 fi
 timeit "CA prep" "fastqToCA -technology sanger -type sanger -reads data/corrected.fastq -libraryname reads" > reads.frg
-timeit "CA" "${maybe_qrsh} runCA reads.frg -d assembly -p assembly ${ca_opts}"
+timeit "CA" "${maybe_qsub} ${RunCA} reads.frg -d assembly -p assembly ${ca_opts}"
 ln -s assembly/9-terminator/assembly.scf.fasta reference.fasta
 timeit "Create Reference Repository" "referenceUploader -p. -f reference.fasta -c -n reference"
 timeit "Resequencing" "smrtpipe.py ${x_opts} --params=${p_reseq} xml:${input}" > /dev/null

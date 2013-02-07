@@ -29,6 +29,11 @@ If the -p and/or -r options are provided, the default parameter files are
 overridden.  You must provide an input.xml which lists the base files to   
 include in the analysis.
 
+The runCA executable called by the script can be overriden on the command line   
+like this:
+
+    > RunCA=/path/to/custom/runCA hgap14.sh 
+
 Output
 ------
 The final output of HGAP will be located in the data/ directory:
