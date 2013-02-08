@@ -29,10 +29,12 @@ If the -p and/or -r options are provided, the default parameter files are
 overridden.  You must provide an input.xml which lists the base files to   
 include in the analysis.
 
-The runCA executable called by the script can be overriden on the command line   
-like this:
+Some success has been achieved by using a newer development versions of runCA   
+than the one we currently ship with.  The runCA executable called by the script  
+can be overriden on the command line like this:
 
     > RunCA=/path/to/custom/runCA hgap14.sh 
+
 
 Output
 ------
@@ -46,3 +48,6 @@ Notes
 The provided xml parameter files are suitable for C2 data.  For XL data,
 you may find more success by adding --allowPartialAlignments to the 
 layoutOps section of the params_preasm.xml file.
+
+Setting the overlap mer size smaller has also helped in some cases with XL  
+data.
