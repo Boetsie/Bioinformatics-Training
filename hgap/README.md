@@ -29,9 +29,12 @@ If the -p and/or -r options are provided, the default parameter files are
 overridden.  You must provide an input.xml which lists the base files to   
 include in the analysis.
 
+A recommended default spec file 'ca_default.spec' for runCA.  If present in   
+the same directory as hgap14.sh, it will be used.
+
 Some success has been achieved by using a newer development versions of runCA   
-than the one we currently ship with.  The runCA executable called by the script  
-can be overriden on the command line like this:
+than the one we currently ship with (7.0).  The runCA executable called by the   
+script can be overriden on the command line like this:
 
     > RunCA=/path/to/custom/runCA hgap14.sh 
 
