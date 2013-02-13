@@ -96,6 +96,11 @@ ca_opts=
 if [ \! -z $p_caspec ]
 then
     ca_opts="-s $p_caspec"
+else
+    if [ -e "${srcdir}/ca_default.spec" ]
+    then 
+        ca_opts="-s ${srcdir}/ca_default.spec"
+    fi
 fi
 
 [ $DEBUG -eq 1 ] && x_opts="--debug ${x_opts}"
@@ -106,6 +111,7 @@ debug "input = ${input}"
 debug "ca_opts = ${ca_opts}"
 debug "x_opts = ${x_opts}"
 debug "qsub = ${maybe_qsub}"
+exit
 
 if [ -z "$input" ]
 then
