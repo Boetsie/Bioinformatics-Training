@@ -7,25 +7,20 @@
 
 QUEUE='secondary'
 DEBUG=0
-VERBOSE=0
+RUN_LOCAL=0
 SEYMOUR_HOME=${SEYMOUR_HOME:?"SMRT Pipe environment not detected."}
 RunCA=${RunCA:-'runCA'}
 
 srcdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 qsub=$(which qsub)
 
-maybe_qsub=
-if [ -x "$qsub" ]
-then
-    maybe_qsub="${qsub} -cwd -sync y -S /bin/bash -V -q ${QUEUE} -N CA -o ./CA.err -b y -j y -pe smp 15 "
-fi
-
 usage() {
     echo -e "USAGE: $(basename $0) [params] <input.xml>\n"          \
             "-p    Optional path to a preassembler params file\n"   \
             "-r    Optional path to a resequencing params file\n"   \
             "-s    Optional path to a celera-assembler spec file\n" \
-            "-x    Override default options to smrtpipe\n"
+            "-x    Override default options to smrtpipe\n"          \
+            "-l    Run everything locally (e.g., no cluster)\n"
     exit 1
 }
 
@@ -57,7 +52,7 @@ then
     usage
 fi
 
-while getopts ":p:r:s:x:d" opt
+while getopts ":p:r:s:x:dl" opt
 do
     case $opt in
       p)
@@ -71,6 +66,9 @@ do
         ;;
       x)
         x_opts="$OPTARG"
+        ;;
+      l)
+        RUN_LOCAL=1
         ;;
       d)
         DEBUG=1
@@ -90,9 +88,18 @@ input=${@:$OPTIND:1}
 
 p_preasm=${p_preasm="${srcdir}/params_preasm.xml"}
 p_reseq=${p_reseq="${srcdir}/params_reseq.xml"}
-x_opts=${x_opts="--distribute -D MAX_THREADS=60 -D HEARTBEAT_FREQ=-1"}
-ca_opts=
 
+x_opts_def="-D MAX_THREADS=60 -D HEARTBEAT_FREQ=-1"
+[ $RUN_LOCAL -eq 0 ] && x_opts_def="${x_opts_def} --distribute"
+x_opts=${x_opts=${x_opts_def}}
+
+maybe_qsub=
+if [[ $RUN_LOCAL -eq 0 && -x "$qsub" ]]
+then
+    maybe_qsub="${qsub} -cwd -sync y -S /bin/bash -V -q ${QUEUE} -N CA -o ./CA.err -b y -j y -pe smp 15 "
+fi
+
+ca_opts=
 if [ \! -z $p_caspec ]
 then
     ca_opts="-s $p_caspec"
@@ -111,7 +118,7 @@ debug "input = ${input}"
 debug "ca_opts = ${ca_opts}"
 debug "x_opts = ${x_opts}"
 debug "qsub = ${maybe_qsub}"
-exit
+debug "run_local = ${RUN_LOCAL}"
 
 if [ -z "$input" ]
 then
